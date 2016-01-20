@@ -8,6 +8,15 @@ var path = require('path');
 
 dotenv.load();
 
+var Auth0 = require('auth0');
+
+var api = new Auth0({
+  domain:       'nutman.auth0.com',
+  clientID:     process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET
+});
+
+
 var authenticate = jwt({
   secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'),
   audience: process.env.AUTH0_CLIENT_ID
@@ -43,6 +52,11 @@ app.get('/ping', function(req, res) {
 });
 
 app.get('/secured/ping', function(req, res) {
+
+  api.getUser(req.user.sub, function(err, user) {
+    console.log(user)
+    // user is a user! error might be an error!
+  });
   res.send(200, {text: "All good. You only get this message if you're authenticated"});
 })
 
