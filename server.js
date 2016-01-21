@@ -20,6 +20,7 @@ var Users = mongoose.model('users', userSchema);
 var acl = require('acl');
 
 acl = new acl(new acl.mongodbBackend(db, 'users'));
+acl.allow('user', 'ping', 'view');
 
 dotenv.load();
 
@@ -66,6 +67,13 @@ app.get('/ping', function (req, res) {
     res.send(200, {text: "All good. You don't need to be authenticated to call this"});
 });
 
+//app.get('/secured/ping/:id', acl.middleware(), function(req, res, next) {
+//    console.log(req)
+//    console.log(res)
+//    console.log(next)
+//});
+
+
 app.get('/secured/ping', function (req, res) {
 
     api.getUser(req.user.sub, function (err, currentUser) {
@@ -79,6 +87,9 @@ app.get('/secured/ping', function (req, res) {
             }
             if (user) {
                 console.log('user exists');
+
+                console.log('allowed = ', acl.isAllowed(user.role, 'ping', 'view'));
+
                 res.send(200, {text: "All good. You only get this message if you're authenticated"});
                 return;
             }
