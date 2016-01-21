@@ -6,11 +6,13 @@
   "author": "Auth0",
   "license": "MIT",
   "dependencies": {
+    "acl": "^0.4.9",
     "auth0": "^0.8.2",
     "cors": "^2.3.1",
     "dotenv": "^0.2.8",
     "express": "~3.3.8",
-    "express-jwt": "0.2.1"
+    "express-jwt": "0.2.1",
+    "mongoose": "^4.3.6"
   },
   "engines": {
     "node": "0.10.x"

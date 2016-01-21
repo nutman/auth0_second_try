@@ -57,7 +57,5 @@ angular.module( 'sample', [
       $scope.pageTitle = nextRoute.$$route.pageTitle + ' | Auth0 Sample' ;
     }
   });
-})
-
-;
+});
 
