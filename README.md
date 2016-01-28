@@ -19,3 +19,31 @@ AUTH0_CLIENT_ID=myCoolClientId
 ````
 
 Once you've set those 2 enviroment variables, just run `node server.js` and try calling [http://localhost:3001/ping](http://localhost:3001/ping)
+
+##How it works
+
+ * server.js - app
+ * server_conf.js - app config 
+ * routes.js - all current routes (should be split)
+ 
+ - acl
+    
+    * acl.js - connect acl with db
+    * acl_conf.js - config for acl
+    
+ - app - Angular web app
+    
+    * home - if user is logged in - give him access if not propose him to log in 
+    * login - login page
+     
+ - auth0 
+ 
+    * auth0.js - connect with AUTH0 service to get user from auth0 user
+    * authenticate - connect with AUTH0 for checking user
+ 
+ - conf - folder with configs for app
+ 
+ - models - folder with user models
+ 
+    * user.js - user model
+    

@@ -5,7 +5,41 @@ angular.module( 'sample.home', [
 
   $scope.auth = auth;
 console.log('auth ', auth)
-  $scope.callApi = function() {
+  $scope.callApiSecuredAdmin = function() {
+    // Just call the API as you'd do using $http
+    $http({
+      url: 'http://localhost:3001/admin',
+      method: 'GET'
+    }).then(function() {
+      alert("We got the secured data successfully");
+    }, function(response) {
+      if (response.status == 0) {
+        alert("Please download the API seed so that you can call it.");
+      }
+      else {
+        alert(response.data);
+      }
+    });
+  };
+
+  $scope.callApiSecuredPhotographer = function() {
+    // Just call the API as you'd do using $http
+    $http({
+      url: 'http://localhost:3001/photographer',
+      method: 'GET'
+    }).then(function() {
+      alert("We got the secured data successfully");
+    }, function(response) {
+      if (response.status == 0) {
+        alert("Please download the API seed so that you can call it.");
+      }
+      else {
+        alert(response.data);
+      }
+    });
+  };
+
+  $scope.callApiSecuredPing = function() {
     // Just call the API as you'd do using $http
     $http({
       url: 'http://localhost:3001/secured/ping',
@@ -20,13 +54,12 @@ console.log('auth ', auth)
         alert(response.data);
       }
     });
-  }
+  };
 
   $scope.logout = function() {
     auth.signout();
     store.remove('profile');
     store.remove('token');
     $location.path('/login');
-  }
-
+  };
 });
