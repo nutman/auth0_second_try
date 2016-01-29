@@ -3,4 +3,4 @@ var fs    = require('fs'),
 
 module.exports = nconf.argv()
     .env()
-    .file({ file: './config.json' });
+    .file({ file: 'conf/config.json' });
