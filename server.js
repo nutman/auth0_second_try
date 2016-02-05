@@ -1,10 +1,13 @@
 var http = require('http');
 var express = require('express');
 var app = express();
-
+var mongoose = require('mongoose');
 require('./models/user.js')
 
-require('./acl/acl.js')(require('./routes.js'), app);
+mongoose.connect('mongodb://127.0.0.1:27017/auth0_users');
+
+
+require('./acl/acl.js')(require('./routes'), app);
 
 require('./server_conf.js')(app);
 

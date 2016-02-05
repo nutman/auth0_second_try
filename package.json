@@ -7,7 +7,9 @@
   "license": "MIT",
   "dependencies": {
     "acl": "^0.4.9",
+    "async": "^1.5.2",
     "auth0": "^0.8.2",
+    "body-parser": "1.14.2",
     "cors": "^2.3.1",
     "dotenv": "^0.2.8",
     "express": "~3.3.8",

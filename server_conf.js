@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser');
 var express = require('express');
 var cors = require('cors');
 var path = require('path');
@@ -9,9 +10,9 @@ module.exports = function server_conf(app) {
         app.use(cors());
 
         // Request body parsing middleware should be above methodOverride
-        app.use(express.bodyParser());
-        app.use(express.urlencoded());
-        app.use(express.json());
+
+        app.use(bodyParser.urlencoded({extended: false}));
+        app.use(bodyParser.json());
 
         app.use('/app', express.static(path.join(__dirname, '/app')));
 

@@ -1,9 +1,51 @@
+<div id="header" class="row">
+  <h1 id="logo" class="profile-info col-md-10"><img src="/home/auth0_logo_final_blue_RGB.png" /></h1>
+
+  <button class="btn-sm btn-warning col-md-2" ng-click="login()" ng-if="!auth.isAuthenticated">Log In</button>
+  <button class="btn-sm btn-warning col-md-2" ng-click="logout()" ng-if="auth.isAuthenticated">Logout</button>
+
+</div>
+
 <div class="home">
-  <h1 id="logo"><img src="/home/auth0_logo_final_blue_RGB.png" /></h1>
-  <img src="{{auth.profile.picture}}" />
-  <h2>Welcome {{auth.profile.nickname}}</h2>
-  <button class="btn btn-lg btn-primary" ng-click="callApiSecuredPing()">Call API Secured Ping</button> <br />
-  <button class="btn btn-lg btn-primary" ng-click="callApiSecuredPhotographer()">Call API Secured Photographer</button> <br />
-  <button class="btn btn-lg btn-primary" ng-click="callApiSecuredAdmin()">Call API Secured Admin</button> <br />
-  <button class="btn-sm btn-warning" ng-click="logout()">Logout</button>
+  <div class="row">
+    <div class="profile-info col-md-6">
+      <img src="{{auth.profile.picture}}" />
+      <h2>Welcome {{auth.profile.nickname}}</h2>
+      <h3 ng-if="auth.isAuthenticated"> You can see this message if you're Authenticated. Your role: <span ng-repeat="role in roles">&nbsp;{{role}}</span></h3>
+    </div>
+    <div class="permission-buttons col-md-6">
+      <button class="btn btn-lg btn-primary" ng-click="callApiSecuredPing()" ng-if="canView(['user', 'admin'])">Call API Secured Ping</button> <br />
+      <button class="btn btn-lg btn-primary" ng-click="callApiSecuredPhotographer()" ng-if="canView(['photographer', 'admin'])">Call API Secured <br>Photographer</button> <br />
+      <button class="btn btn-lg btn-primary" ng-click="callApiSecuredAdmin()" ng-if="canView(['admin'])">Call API Secured Admin</button> <br />
+    </div>
+  </div>
+</div>
+
+<div ng-if="canView(['admin'])">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in users track by $index">
+        <td>{{$index}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <ui-select ng-model="user.role" ng-disabled="disabled" ng-change="saveUserRole(user)">
+            <ui-select-match placeholder="User role">{{$select.selected}}
+            </ui-select-match>
+            <ui-select-choices repeat="role in rolesList | filter: $select.search">
+              <span ng-bind-html="role | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

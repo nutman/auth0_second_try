@@ -2,9 +2,11 @@ angular.module( 'sample', [
   'auth0',
   'ngRoute',
   'sample.home',
-  'sample.login',
   'angular-storage',
-  'angular-jwt'
+  'angular-jwt',
+  'ngResource',
+  'ngSanitize',
+  'ui.select'
 ])
 .config( function myAppConfig ( $routeProvider, authProvider, $httpProvider, $locationProvider,
   jwtInterceptorProvider) {
@@ -14,18 +16,11 @@ angular.module( 'sample', [
       templateUrl: 'home/home.html',
       pageTitle: 'Homepage',
       requiresLogin: true
-    })
-    .when( '/login', {
-      controller: 'LoginCtrl',
-      templateUrl: 'login/login.html',
-      pageTitle: 'Login'
     });
-
 
   authProvider.init({
     domain: AUTH0_DOMAIN,
-    clientID: AUTH0_CLIENT_ID,
-    loginUrl: '/login'
+    clientID: AUTH0_CLIENT_ID
   });
 
   jwtInterceptorProvider.tokenGetter = function(store) {
@@ -43,8 +38,6 @@ angular.module( 'sample', [
       if (token) {
         if (!jwtHelper.isTokenExpired(token)) {
           auth.authenticate(store.get('profile'), token);
-        } else {
-          $location.path('/login');
         }
       }
     }

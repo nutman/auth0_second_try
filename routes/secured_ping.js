@@ -1,45 +1,11 @@
+var path = require('path');
 var mongoose = require('mongoose');
 var Users = mongoose.model('auth0_users');
+var authApi = require('auth0/auth0.js');
 
-var authenticate = require('./auth0/authenticate.js');
-var api = require('./auth0/auth0.js');
-
-module.exports = function router(app, mongo_acl) {
-    app.get('/', function (req, res) {
-        res.sendfile(path.join(__dirname + '/app/index.html'));
-    });
-
-    app.get('/ping', function (req, res) {
-        res.send(200, {text: "All good. You don't need to be authenticated to call this"});
-    });
-
-    app.get('/photographer', authenticate, mongo_acl.middleware(1, get_user_id, ['create', 'read']), function (req, res) {
-        console.log('photographer is here')
-        mongo_acl.allowedPermissions(req.user.sub, '/admin', function (err, object) {
-            console.log(object);
-
-        });
-        res.send(200, {
-            text: "All good. You only get this message if you're photographer"
-        });
-    });
-    app.get('/admin', authenticate, mongo_acl.middleware(1, get_user_id, ['create', 'read', 'update', 'delete']), function (req, res) {
-        console.log('admin is here');
-        mongo_acl.allowedPermissions(req.user.sub, '/admin', function (err, object) {
-            if (err) {
-                console.log('err = ', err);
-            }
-            console.log(object);
-
-        });
-        res.send(200, {
-            text: "All good. You only get this message if you're admin"
-        });
-    });
-
+module.exports = function (app, mongo_acl) {
     app.get('/secured/ping', function (req, res) {
-
-        api.getUser(req.user.sub, function (err, currentUser) {
+        authApi.getUser(req.user.sub, function (err, currentUser) {
             if (err) {
                 return console.log(err);
             }
@@ -59,8 +25,11 @@ module.exports = function router(app, mongo_acl) {
                         console.log('mongo_acl = ', res);
                     });
 
-                    mongo_acl.allowedPermissions(user.user_id, 'ping', function (err, object) {
-                        res.send(200, {text: "All good. You only get this message if you're authenticated", permissions: object});
+                    mongo_acl.allowedPermissions(user.user_id, '/ping', function (err, object) {
+                        res.send(200, {
+                            text: "All good. You only get this message if you're authenticated",
+                            permissions: object
+                        });
 
                     });
 
@@ -102,9 +71,4 @@ module.exports = function router(app, mongo_acl) {
             });
         });
     });
-
 };
-
-function get_user_id(req, res) {
-    return req.user.sub;
-}

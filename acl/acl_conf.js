@@ -1,4 +1,5 @@
 module.exports = function acl_conf(acl) {
+
     acl.allow([
         {
             roles: ['user'],
@@ -13,7 +14,7 @@ module.exports = function acl_conf(acl) {
         }, {
             roles: 'admin',
             allows: [
-                {resources:['/admin', '/ping', '/photographer'], permissions:['create', 'read', 'update', 'delete']}
+                {resources:['/admin', '/ping', '/photographer', '/get_users', '/set_user'], permissions:['create', 'read', 'update', 'delete']}
             ]
         }
     ]);
