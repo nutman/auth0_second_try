@@ -1,10 +1,13 @@
 {
   "name": "auth0-nodejsapi-sample",
   "version": "0.1.0",
-  "description": "Auth0 + NodeJS API Seed",
-  "repository": "git://github.com/auth0/auth0-nodejsapi-sample",
+  "description": "Auth0 + NodeJS API + acl - set roles to users",
+  "repository": "https://github.com/nutman/auth0_second_try/tree/feature-acl",
   "author": "Auth0",
   "license": "MIT",
+  "scripts": {
+    "start": "node ./server.js & serve ./app"
+  },
   "dependencies": {
     "acl": "^0.4.9",
     "async": "^1.5.2",
