@@ -24,14 +24,18 @@ Once you've set those 2 enviroment variables, just run `npm start` and try calli
 ##How it works
 
 /auth0_second_try
-⋅⋅⋅server.js - app
-⋅⋅⋅server_conf.js - app config 
-⋅⋅⋅routes.js - all current routes (should be split)
+
+&nbsp;&nbsp;server.js - app
+
+&nbsp;&nbsp;server_conf.js - app config 
+
+&nbsp;&nbsp;routes.js - all current routes (should be split)
  
  /acl
     
-⋅⋅⋅acl.js - connect acl with db
-⋅⋅⋅acl_conf.js - config for acl
+&nbsp;&nbsp;acl.js - connect acl with db
+
+&nbsp;&nbsp;acl_conf.js - config for acl
     
  /app - Angular web app. (To start app run 'serve' in app folder. It should run in 3000 port)
     
@@ -42,13 +46,14 @@ Once you've set those 2 enviroment variables, just run `npm start` and try calli
      
  /auth0 
  
-⋅⋅⋅auth0.js - connect with AUTH0 service to get user from auth0 user
-⋅⋅⋅authenticate - connect with AUTH0 for checking user
+&nbsp;&nbsp;auth0.js - connect with AUTH0 service to get user from auth0 user
+
+&nbsp;&nbsp;authenticate - connect with AUTH0 for checking user
  
  /conf - folder with configs for app
  
  /models - folder with user models
  
-⋅⋅⋅user.js - user model
+&nbsp;&nbsp;user.js - user model
     
  /routes - server routes
