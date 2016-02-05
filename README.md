@@ -1,10 +1,11 @@
 # quick start instructions 
-    run server on 3001 port:
+run server on 3001 port:
     
     ```
     node ./server.js
     ```
-    and run web server on 3000 port:
+and run web server on 3000 port:
+    
     ```
     serve ./app
     ```
