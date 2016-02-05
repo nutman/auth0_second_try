@@ -6,6 +6,8 @@ Run `npm install` to ensure local dependencies are available.
 
 You also need to set the ClientSecret and ClientId for your Auth0 app as enviroment variables with the following names respectively: `AUTH0_CLIENT_SECRET` and `AUTH0_CLIENT_ID`.
 
+Link to auth0 guide how to create tokens: https://manage.auth0.com/#/applications
+
 For that, the following should have been already created for you; if not, just create a file named `config.json` in the `conf` directory and set the values like the following, the app will just work:
 
 ````bash
@@ -21,31 +23,32 @@ Once you've set those 2 enviroment variables, just run `npm start` and try calli
 
 ##How it works
 
- * server.js - app
- * server_conf.js - app config 
- * routes.js - all current routes (should be split)
+/auth0_second_try
+ server.js - app
+ server_conf.js - app config 
+ routes.js - all current routes (should be split)
  
- - acl
+ /acl
     
-    * acl.js - connect acl with db
-    * acl_conf.js - config for acl
+  acl.js - connect acl with db
+  acl_conf.js - config for acl
     
- - app - Angular web app. (To start app run 'serve' in app folder. It should run in 3000 port)
+ /app - Angular web app. (To start app run 'serve' in app folder. It should run in 3000 port)
     
-    * home - if user is logged in - give him access if not propose him to log in, 
+  /home - if user is logged in - give him access if not propose him to log in, 
     also admin can manage users roles
     
-    * libs - temporary directory with libs
+  /libs - temporary directory with libs
      
- - auth0 
+ /auth0 
  
-    * auth0.js - connect with AUTH0 service to get user from auth0 user
-    * authenticate - connect with AUTH0 for checking user
+  auth0.js - connect with AUTH0 service to get user from auth0 user
+  authenticate - connect with AUTH0 for checking user
  
- - conf - folder with configs for app
+ /conf - folder with configs for app
  
- - models - folder with user models
+ /models - folder with user models
  
-    * user.js - user model
+  user.js - user model
     
- - routes - server routes
+ /routes - server routes
