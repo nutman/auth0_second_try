@@ -31,10 +31,12 @@ Once you've set those 2 enviroment variables, just run `node server.js` and try 
     * acl.js - connect acl with db
     * acl_conf.js - config for acl
     
- - app - Angular web app
+ - app - Angular web app. (To start app run 'serve' in app folder. It should run in 3000 port)
     
-    * home - if user is logged in - give him access if not propose him to log in 
-    * login - login page
+    * home - if user is logged in - give him access if not propose him to log in, 
+    also admin can manage users roles
+    
+    * libs - temporary directory with libs
      
  - auth0 
  
@@ -47,3 +49,4 @@ Once you've set those 2 enviroment variables, just run `node server.js` and try 
  
     * user.js - user model
     
+ - routes - server routes
