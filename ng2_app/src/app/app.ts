@@ -41,6 +41,26 @@ class PrivateRoute {
     <button *ngIf="loggedIn()" (click)="tokenSubscription()">Show Token from Observable</button>
     <button (click)="getSecretThing()">Get Secret Thing</button>
     <button *ngIf="loggedIn()" (click)="useJwtHelper()">Use Jwt Helper</button>
+
+    <div >
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="#user in users">
+
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
   `
 })
 @RouteConfig([
@@ -51,6 +71,12 @@ export class App {
 
   lock = new Auth0Lock('jabqRpqZKEWRUjBs7hwXhWUbHoWUeUrr', 'nutman.auth0.com');
   jwtHelper: JwtHelper = new JwtHelper();
+
+  //auth = auth;
+  role = [];
+  roles = [];
+  rolesList = ['admin', 'photographer', 'user'];
+  users = [];
 
   constructor(public http: Http, public authHttp: AuthHttp) {}
 
@@ -74,6 +100,21 @@ export class App {
 
   loggedIn() {
     return tokenNotExpired();
+  }
+
+  canView (arr) {
+    let access = false;
+    if (typeof arr !== 'object') {
+      arr = [arr];
+    }
+
+    arr.forEach(function(role) {
+      if (this.roles.indexOf(role) !== -1) {
+        access = true;
+      }
+    });
+
+    return access;
   }
 
   getThing() {
